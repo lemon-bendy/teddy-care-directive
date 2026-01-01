@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teddy's Care Directive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #5D4037; /* Mocha brown text */
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); /* Pastel green background */
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(141, 110, 99, 0.2); /* Mocha brown shadow */
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #A5D6A7 0%, #81C784 100%); /* Soft pastel green */
+            color: #5D4037; /* Mocha brown text */
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .teddy-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #FFF8E1; /* Cream border */
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.3); /* Mocha brown shadow */
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #5D4037; /* Mocha brown */
+        }
+
+        .header-text p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Content Styles */
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(141, 110, 99, 0.15); /* Mocha brown shadow */
+            border: 1px solid #E0E0E0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(141, 110, 99, 0.25); /* Mocha brown shadow */
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%); /* Pastel green gradient */
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .section-header h2 {
+            color: #5D4037; /* Mocha brown */
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .arrow {
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+            color: #5D4037;
+        }
+
+        .section-header.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0;
+        }
+
+        .section-content.active {
+            max-height: 3000px;
+            padding: 1.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: #F1F8E9; /* Light pastel green */
+            border-radius: 10px;
+            padding: 1.2rem;
+            box-shadow: 0 3px 10px rgba(141, 110, 99, 0.1); /* Mocha brown shadow */
+            border: 1px solid #E8F5E9;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(141, 110, 99, 0.2); /* Mocha brown shadow */
+            background: #E8F5E9; /* Slightly darker pastel green */
+        }
+
+        .info-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .info-card h3 {
+            color: #6D4C41; /* Mocha brown accent */
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            border-bottom: 2px dashed #C8E6C9; /* Pastel green border */
+            padding-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            color: #5D4037; /* Mocha brown text */
+            line-height: 1.5;
+        }
+
+        .info-card strong {
+            color: #6D4C41;
+        }
+
+        .info-card a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .info-card a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .emergency-card {
+            background: #FFEBEE; /* Light red for emergency */
+            border: 1px solid #FFCDD2;
+        }
+
+        .emergency-card h3 {
+            color: #C62828;
+            border-bottom-color: #FFCDD2;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, #A5D6A7 0%, #81C784 100%); /* Soft pastel green */
+            color: #5D4037; /* Mocha brown text */
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 5px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .teddy-photo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .header-text p {
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="Teddy.jpg" alt="Teddy" class="teddy-photo">
+                <div class="header-text">
+                    <h1>🐾 Teddy's Care Guide 🐾</h1>
+                    <p>Everything you need to know about our beloved nub puppy!</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+            <!-- Emergency Info Section -->
+            <section class="section">
+                <div class="section-header" onclick="toggleSection('emergency')">
+                    <h2>🚨 Emergency Info</h2>
+                    <div class="arrow">⌄</div>
+                </div>
+                <div class="section-content" id="emergency-content">
+                    <div class="info-grid">
+                        <div class="info-card emergency-card full-width">
+                            <h3>Emergency Instructions</h3>
+                            <p>Contact primary vet first if possible. For after-hours emergencies, go to 24-Hour Emergency Vet. Please call us if there are any emergencies. Teddy gets anxious at the vet, so a muzzle may be needed.</p>
+                        </div>
+                        <div class="info-card full-width">
+                            <h3>Behavioral Notes</h3>
+                            <p>Teddy is generally calm but may become anxious in emergency situations. He responds well to gentle voice commands. If he is hesitant to do something that you need him to do, singing him a gentle song may encourage him to be brave.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Care Section -->
+            <section class="section">
+                <div class="section-header" onclick="toggleSection('daily-care')">
+                    <h2>🍽️ Daily Care</h2>
+                    <div class="arrow">⌄</div>
+                </div>
+                <div class="section-content" id="daily-care-content">
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>Food and Water</h3>
+                            <p>Blue Buffalo Senior - Chicken or Salmon Recipes</p>
+                            <p>Morning - 1.5 cup<br>Evening - 1.5 cup</p>
+                            <p>Cosequin once per day with a meal</p>
+                            <p>Teddy likes his water fresh - please change bowl daily.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Treats & Restrictions</h3>
+                            <p>Only dental treats allowed. No chocolate, grapes, onions, raisins, or xylitol.</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Exercise & Activities</h3>
+                            <p>2 walks daily (30 mins each)</p>
+                            <p>Tug-of-war, fetch, cuddles</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Personality</h3>
+                            <p><strong>Traits:</strong> Friendly, playful, loves attention, sometimes stubborn, wary of strangers, can be intimidating</p>
+                            <p><strong>Loves:</strong> Belly rubs, playtime, walks<br><strong>Dislikes:</strong> Loud noises, being alone, unstable objects</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Comfort Items</h3>
+                            <p>Blanket. Allowed in bed when invited</p>
+                        </div>
+                        <div class="info-card full-width">
+                            <h3>Quirks</h3>
+                            <p>He tends to hide treats around the house.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Medical Info Section -->
+            <section class="section">
+                <div class="section-header" onclick="toggleSection('medical')">
+                    <h2>⚕️ Medical Info</h2>
+                    <div class="arrow">⌄</div>
+                </div>
+                <div class="section-content" id="medical-content">
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>Vet Contact</h3>
+                            <p>Manchaca Village Veterinary Care</p>
+                            <p><a href="tel:+15128382273">(512) 838-2273</a><br><a href="https://maps.google.com/?q=12117+Menchaca+Rd,+Austin,+TX+78748" target="_blank">12117 Menchaca Rd<br>Austin, TX 78748</a></p>
+                        </div>
+                        <div class="info-card">
+                            <h3>Conditions & Medications</h3>
+                            <p>Mild arthritis in hips</p>
+                            <p>Cosequin supplement once per day with a meal</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p class="footer-text">Thank you for taking care of our precious Teddy! 🐶</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const header = content.previousElementSibling;
+
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
